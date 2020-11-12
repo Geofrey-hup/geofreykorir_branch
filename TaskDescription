@@ -1,0 +1,94 @@
+Java Programming Task
+
+Background
+
+Mavuno Farmers Union  is a farmers cooperative union with over 400K farmers registered in their system and who make daily tea deliveries to their collection centres. The farmers are then paid at the end of month based on their output. To simplify their processes and avoid manual reconciliation Mavuno Farmer Union has contracted KCB Bank to make disbursement payments to their members at the end of the month from their bank account. The farmer’s union will send instructions to the bank and the amounts of money shall be disbursed to the farmers account either to the farmers KCB Bank account or MPESA Wallet. 
+
+Question 
+You have been tasked by the head of solutions department to develop a solution that will be used to disburse the money to MPESA wallets after receiving the request from the bank’s core-banking system. Sample JSON request from core-banking is attached as well as the sample request to MPESA third party system. 
+
+Requirements 
+1.	Design the solution above showing the various components and reasons for their choice. Including the high level & low level solution architecture and Activity Diagram.
+2.	Develop the above solution and the accompanying unit tests
+3.	Implement an appropriate security and authentication mechanism on your solution
+
+Implementation Notes
+
+We want to encourage creativity in this technical assessment, however we also want to understand your coding style and skills (exception handling, logging, Object Oriented Analysis and design)
+
+Your application should receive a JSON request in the format below:
+
+REQUEST FROM CORE BANKING
+-------------------------
+
+
+{
+    "header": {
+        "messageID": "12345666",
+        "featureCode": "201",
+        "featureName": "FinancialTransactions",
+        "serviceCode": "2001",
+        "serviceName": "FundsTransfer",
+        "serviceSubCategory":"Account",
+        "minorServiceVersion": "1.0",
+        "channelCode": "01",
+        "channelName": "atm",
+        "routeCode": "01",  
+        "timeStamp": "22222",
+        "serviceMode": "sync",  
+        "subscribeEvents": "1",
+        "callBackURL": ""  
+    },
+   "requestPayload": {
+     
+      "transactionInfo": {
+         "companyCode": "KE0010001",
+         "transactionType": "Payment Notification",
+         "creditAccountNumber": "",
+"credintMobileNumber":"",
+         "transactionAmount": "",
+         "transactionReference": "",
+         "currencyCode": "",
+          "amountCurrency": "",
+          "dateTime": "",
+          "dateString": "",
+      }
+   }
+}
+
+
+RESPONSE
+
+Success
+
+{
+    "header": {
+        "messageID": "12345666",
+        "conversationID": "123123131312",
+        "targetSystemID": "123123131312",
+        "routeCode": "01",  
+        "statusCode":"0",
+        "statusDescription":"Success",
+        "statusMessage":"TRANACTION FOR TYPE ACZW SUCCESSFUL"
+     },
+   "responsePayload": {
+       
+      "transactionInfo": {
+         "transactionId": "FT20114XHFQF",
+         "falconBalance":"10.00"
+      }
+   }
+}
+
+
+It should then consume Daraja B2C api
+
+https://developer.safaricom.co.ke/docs#b2b-api 
+
+https://developer.safaricom.co.ke/b2c/apis/post/paymentrequest
+
+
+
+Then handle Daraja Response Appropriately
+
+
